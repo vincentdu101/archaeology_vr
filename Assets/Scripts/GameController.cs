@@ -6,15 +6,15 @@ public class GameController : MonoBehaviour {
 
 	private GameState gameState;
 	private MenuManager menuManager;
-	private Camera camera;
+	private PlayerCamera playerCamera;
 	private GameObject startingPoint;
 	private float zBufferFromStartMenu = -102.9f;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		gameState = GameObject.Find("GameState").GetComponent<GameState>();
 		menuManager = GameObject.Find("MenuManager").GetComponent<MenuManager>();
-		camera = GameObject.Find("Camera").GetComponent<Camera>();
+		playerCamera = GameObject.Find("PlayerCamera").GetComponent<PlayerCamera>();
 		startingPoint = GameObject.Find("StartingPoint");
 		MovePlayerToStartMenu();
 	}
@@ -27,15 +27,16 @@ public class GameController : MonoBehaviour {
 	private void MovePlayerToStartMenu() {
 		Vector3 menuPosition = menuManager.GetMenuPosition(MenuManager.TYPE.START);
 		menuPosition.z += zBufferFromStartMenu;
-		camera.SetCameraPosition(menuPosition);
+		playerCamera.SetCameraPosition(menuPosition);
 	}
 
 	private void MovePlayerToStartPoint() {
 		Vector3 initialPos = startingPoint.transform.position;
-		camera.SetCameraPosition(initialPos);
+		playerCamera.SetCameraPosition(initialPos);
 	}
 
 	public void StartGame() {
 		gameState.StartGame();
+		MovePlayerToStartPoint();
 	}
 }

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archaeology VR", "Assembly-CSharp-firstpass.csproj", "{9E3F2245-0783-EF50-A440-529FDDB0EAD2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archaeology VR", "Assembly-CSharp.csproj", "{66537BF9-64D5-90FA-3EFA-9285F752319C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archaeology VR", "Assembly-CSharp-firstpass.csproj", "{9E3F2245-0783-EF50-A440-529FDDB0EAD2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archaeology VR", "Assembly-CSharp-Editor-firstpass.csproj", "{233DD892-E735-739B-E88E-9C00A9F7BAB0}"
 EndProject
@@ -15,14 +15,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9E3F2245-0783-EF50-A440-529FDDB0EAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E3F2245-0783-EF50-A440-529FDDB0EAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E3F2245-0783-EF50-A440-529FDDB0EAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E3F2245-0783-EF50-A440-529FDDB0EAD2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66537BF9-64D5-90FA-3EFA-9285F752319C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66537BF9-64D5-90FA-3EFA-9285F752319C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66537BF9-64D5-90FA-3EFA-9285F752319C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66537BF9-64D5-90FA-3EFA-9285F752319C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E3F2245-0783-EF50-A440-529FDDB0EAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E3F2245-0783-EF50-A440-529FDDB0EAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E3F2245-0783-EF50-A440-529FDDB0EAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E3F2245-0783-EF50-A440-529FDDB0EAD2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{233DD892-E735-739B-E88E-9C00A9F7BAB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{233DD892-E735-739B-E88E-9C00A9F7BAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{233DD892-E735-739B-E88E-9C00A9F7BAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU

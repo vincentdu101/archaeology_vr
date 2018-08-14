@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour {
+public class PlayerCamera : MonoBehaviour {
 
-	private GameObject camera;
+	private new GameObject camera;
 
 	// Use this for initialization
 	void Start () {
-		camera = GameObject.FindGameObjectWithTag("MainCamera");
+		camera = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 	// Update is called once per frame
