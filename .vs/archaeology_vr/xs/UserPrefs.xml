@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{26F88AB7-86C3-A660-D4A2-5653C584CDC7}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GoogleVR/Scripts/EventSystem/GvrPointerGraphicRaycaster.cs">
+    <Files>
+      <File FileName="Assets/GoogleVR/Scripts/EventSystem/GvrPointerGraphicRaycaster.cs" Line="64" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
