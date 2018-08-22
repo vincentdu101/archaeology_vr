@@ -159,12 +159,14 @@
      <Compile Include="Assets\GoogleVR\Scripts\Utilities\GvrUIHelpers.cs" />
      <Compile Include="Assets\GoogleVR\Scripts\Utilities\GvrVRHelpers.cs" />
      <Compile Include="Assets\GoogleVR\Scripts\Video\GvrVideoPlayerTexture.cs" />
+     <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\CharacterDataService.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
-     <Compile Include="Assets\Scripts\GameDataModels.cs" />
+     <Compile Include="Assets\Scripts\GameDataModel.cs" />
      <Compile Include="Assets\Scripts\GameState.cs" />
      <Compile Include="Assets\Scripts\MenuManager.cs" />
      <Compile Include="Assets\Scripts\MenuScreen.cs" />
+     <Compile Include="Assets\Scripts\MovementService.cs" />
      <Compile Include="Assets\Scripts\PlayerCamera.cs" />
      <None Include="Assets\GoogleVR\Shaders\GvrUIOverlayFont.shader" />
      <None Include="Assets\Military Vehicle\Humvee Info.txt" />

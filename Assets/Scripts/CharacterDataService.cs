@@ -44,6 +44,7 @@ public class CharacterDataService : MonoBehaviour {
 		if(File.Exists(filePath)) {
 			// Read the json from the file into a string
 			string dataAsJson = File.ReadAllText(filePath); 
+			
 			// Pass the json to JsonUtility, and tell it to create a GameData object from it
 			GameDataModel.GameData data = JsonUtility.FromJson<GameDataModel.GameData>(dataAsJson);
 
