@@ -11,6 +11,7 @@ public class MovementService : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
+		Debug.Log(player);
 	}
 	
 	// Update is called once per frame
@@ -19,6 +20,7 @@ public class MovementService : MonoBehaviour {
 	}
 
 	public void MoveUpPathOne() {
+		Debug.Log("test");
 		player.transform.position = player.transform.position + new Vector3(0.0f, 0.0f, 3.0f);
 	}
 
