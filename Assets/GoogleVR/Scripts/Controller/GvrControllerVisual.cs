@@ -20,7 +20,8 @@ using System.Collections;
 
 /// Provides visual feedback for the daydream controller.
 [RequireComponent(typeof(Renderer))]
-public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrControllerInputDeviceReceiver {
+public class GvrControllerVisual : GvrBaseControllerVisual {
+
   [System.Serializable]
   public struct ControllerDisplayState {
 
@@ -46,8 +47,7 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
   [SerializeField] private Color systemButtonColor =
       new Color(20f / 255f, 20f / 255f, 20f / 255f, 1);
 
-  /// Determines if the displayState is set from GvrControllerInputDevice.
-  [Tooltip("Determines if the displayState is set from GvrControllerInputDevice.")]
+  /// Determines if the displayState is set from GvrControllerInput.
   public bool readControllerState = true;
 
   /// Used to set the display state of the controller visual.
@@ -56,21 +56,6 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
   /// Additionally, it can be used to preview the controller visual in the editor.
   /// NOTE: readControllerState must be disabled to set the display state.
   public ControllerDisplayState displayState;
-
-  /// This is the preferred, maximum alpha value the object should have
-  /// when it is a comfortable distance from the head.
-  [Range(0.0f, 1.0f)]
-  public float maximumAlpha = 1.0f;
-
-  public GvrBaseArmModel ArmModel { get; set; }
-
-  public GvrControllerInputDevice ControllerInputDevice { get; set; }
-
-  public float PreferredAlpha{
-    get{
-      return ArmModel != null ?  maximumAlpha * ArmModel.PreferredAlpha : maximumAlpha;
-    }
-  }
 
   public Color TouchPadColor {
     get {
@@ -116,7 +101,6 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
   private int touchPadId;
   private int appButtonId;
   private int systemButtonId;
-  private int batteryColorId;
 
   private bool wasTouching;
   private float touchTime;
@@ -126,7 +110,6 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
   // Data passed to shader, (x) overall alpha, (y) touchpad click duration,
   //  (z) app button click duration, (w) system button click duration.
   private Vector4 controllerShaderData2;
-  private Color currentBatteryColor;
 
   // These values control animation times for the controller buttons
   public const float APP_BUTTON_ACTIVE_DURATION_SECONDS = 0.111f;
@@ -143,44 +126,28 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
 
   // These values are used by the shader to control battery display
   // Only modify these values if you are also modifying the shader.
-  private const float BATTERY_FULL = 0;
-  private const float BATTERY_ALMOST_FULL = .125f;
-  private const float BATTERY_MEDIUM = .225f;
-  private const float BATTERY_LOW = .325f;
-  private const float BATTERY_CRITICAL = .425f;
-  private const float BATTERY_HIDDEN = .525f;
-
-  private readonly Color GVR_BATTERY_CRITICAL_COLOR = new Color(1,0,0,1);
-  private readonly Color GVR_BATTERY_LOW_COLOR = new Color(1,0.6823f,0,1);
-  private readonly Color GVR_BATTERY_MED_COLOR = new Color(0,1,0.588f,1);
-  private readonly Color GVR_BATTERY_FULL_COLOR = new Color(0,1,0.588f,1);
+  private const float BATTERY_FULL = 1;
+  private const float BATTERY_ALMOST_FULL = .8f;
+  private const float BATTERY_MEDIUM = .6f;
+  private const float BATTERY_LOW = .4f;
+  private const float BATTERY_CRITICAL = .2f;
+  private const float BATTERY_HIDDEN = 0;
 
   // How much time to use as an 'immediate update'.
   // Any value large enough to instantly update all visual animations.
   private const float IMMEDIATE_UPDATE_TIME = 10f;
 
-  void Awake() {
+  protected override void Awake() {
+    base.Awake();
     Initialize();
     CreateAttachments();
   }
 
-  void OnEnable() {
-    GvrControllerInput.OnPostControllerInputUpdated += OnPostControllerInputUpdated;
-  }
-
-  void OnDisable() {
-    GvrControllerInput.OnPostControllerInputUpdated -= OnPostControllerInputUpdated;
-  }
-
-  void OnValidate() {
+  private void OnValidate() {
     if (!Application.isPlaying) {
       Initialize();
       OnVisualUpdate(true);
     }
-  }
-
-  private void OnPostControllerInputUpdated() {
-    OnVisualUpdate();
   }
 
   private void CreateAttachments() {
@@ -208,7 +175,6 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
     touchPadId = Shader.PropertyToID("_GvrTouchPadColor");
     appButtonId = Shader.PropertyToID("_GvrAppButtonColor");
     systemButtonId = Shader.PropertyToID("_GvrSystemButtonColor");
-    batteryColorId = Shader.PropertyToID("_GvrBatteryColor");
 
     materialPropertyBlock.SetColor(appButtonId, appButtonColor);
     materialPropertyBlock.SetColor(systemButtonId, systemButtonColor);
@@ -216,29 +182,26 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
     controllerRenderer.SetPropertyBlock(materialPropertyBlock);
   }
 
-  private void UpdateControllerState() {
+  public void UpdateControllerState() {
     // Return early when the application isn't playing to ensure that the serialized displayState
-    // is used to preview the controller visual instead of the default GvrControllerInputDevice
-    // values.
+    // is used to preview the controller visual instead of the default GvrControllerInput values.
 #if UNITY_EDITOR
     if (!Application.isPlaying) {
       return;
     }
 #endif
 
-    if(ControllerInputDevice != null) {
-      displayState.batteryLevel = ControllerInputDevice.BatteryLevel;
-      displayState.batteryCharging = ControllerInputDevice.IsCharging;
+    displayState.batteryLevel = GvrControllerInput.BatteryLevel;
+    displayState.batteryCharging = GvrControllerInput.IsCharging;
 
-      displayState.clickButton = ControllerInputDevice.GetButton(GvrControllerButton.TouchPadButton);
-      displayState.appButton = ControllerInputDevice.GetButton(GvrControllerButton.App);
-      displayState.homeButton = ControllerInputDevice.GetButton(GvrControllerButton.System);
-      displayState.touching = ControllerInputDevice.GetButton(GvrControllerButton.TouchPadTouch);
-      displayState.touchPos = ControllerInputDevice.TouchPos;
-    }
+    displayState.clickButton = GvrControllerInput.ClickButton;
+    displayState.appButton = GvrControllerInput.AppButton;
+    displayState.homeButton = GvrControllerInput.HomeButtonState;
+    displayState.touching = GvrControllerInput.IsTouching;
+    displayState.touchPos = GvrControllerInput.TouchPosCentered;
   }
 
-  private void OnVisualUpdate(bool updateImmediately = false) {
+  public override void OnVisualUpdate(bool updateImmediately = false) {
 
     // Update the visual display based on the controller state
     if(readControllerState) {
@@ -272,7 +235,7 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
     }
 
     // Set the material's alpha to the multiplied preferred alpha.
-    controllerShaderData2.x = PreferredAlpha;
+    controllerShaderData2.x = maximumAlpha * PreferredAlpha;
     materialPropertyBlock.SetVector(alphaId, controllerShaderData2);
 
     controllerShaderData.x = displayState.touchPos.x;
@@ -297,7 +260,7 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
     UpdateBatteryIndicator();
 
     materialPropertyBlock.SetVector(touchId, controllerShaderData);
-    materialPropertyBlock.SetColor(batteryColorId, currentBatteryColor);
+
     // Update the renderer
     controllerRenderer.SetPropertyBlock(materialPropertyBlock);
   }
@@ -310,37 +273,27 @@ public class GvrControllerVisual : MonoBehaviour, IGvrArmModelReceiver, IGvrCont
     switch (level) {
       case GvrControllerBatteryLevel.Full:
         controllerShaderData.w = BATTERY_FULL;
-        currentBatteryColor = GVR_BATTERY_FULL_COLOR;
       break;
       case GvrControllerBatteryLevel.AlmostFull:
         controllerShaderData.w = BATTERY_ALMOST_FULL;
-        currentBatteryColor = GVR_BATTERY_FULL_COLOR;
       break;
       case GvrControllerBatteryLevel.Medium:
         controllerShaderData.w = BATTERY_MEDIUM;
-        currentBatteryColor = GVR_BATTERY_MED_COLOR;
       break;
       case GvrControllerBatteryLevel.Low:
         controllerShaderData.w = BATTERY_LOW;
-        currentBatteryColor = GVR_BATTERY_LOW_COLOR;
       break;
       case GvrControllerBatteryLevel.CriticalLow:
         controllerShaderData.w = BATTERY_CRITICAL;
-        currentBatteryColor = GVR_BATTERY_CRITICAL_COLOR;
       break;
       default:
         controllerShaderData.w = BATTERY_HIDDEN;
-        currentBatteryColor.a = 0;
       break;
     }
 
     if (charging) {
       controllerShaderData.w = -controllerShaderData.w;
-      currentBatteryColor = GVR_BATTERY_FULL_COLOR;
     }
   }
 
-  public void SetControllerTexture(Texture newTexture) {
-    controllerRenderer.material.mainTexture = newTexture;
-  }
 }

@@ -54,20 +54,19 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\GoogleVR\Demos\Editor\DemoInputManagerEditor.cs" />
-     <Compile Include="Assets\GoogleVR\Demos\Editor\PermissionsDemoBuildProcessor.cs" />
+     <Compile Include="Assets\GoogleVR\Demos\Editor\PermissionsDemoBuildEditor.cs" />
+     <Compile Include="Assets\GoogleVR\Demos\Scripts\ScrollingUIDemo\Editor\PagedScrollbarEditor.cs" />
+     <Compile Include="Assets\GoogleVR\Editor\Audio\GvrAudioListenerEditor.cs" />
+     <Compile Include="Assets\GoogleVR\Editor\Audio\GvrAudioRoomEditor.cs" />
+     <Compile Include="Assets\GoogleVR\Editor\Audio\GvrAudioSoundfieldEditor.cs" />
+     <Compile Include="Assets\GoogleVR\Editor\Audio\GvrAudioSourceEditor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\Controller\GvrControllerVisualEditor.cs" />
-     <Compile Include="Assets\GoogleVR\Editor\Controller\GvrLaserPointerEditor.cs" />
-     <Compile Include="Assets\GoogleVR\Editor\Controller\GvrLaserVisualEditor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\Controller\GvrTooltipEditor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\EventSystem\GvrPointerScrollInputEditor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\GvrBuildProcessor.cs" />
      <Compile Include="Assets\GoogleVR\Editor\GvrEditorEmulatorEditor.cs" />
-     <Compile Include="Assets\GoogleVR\Editor\GvrEditorMenu.cs" />
      <Compile Include="Assets\GoogleVR\Editor\GvrEditorSettings.cs" />
-     <Compile Include="Assets\GoogleVR\Legacy\Editor\Audio\GvrAudioListenerEditor.cs" />
-     <Compile Include="Assets\GoogleVR\Legacy\Editor\Audio\GvrAudioRoomEditor.cs" />
-     <Compile Include="Assets\GoogleVR\Legacy\Editor\Audio\GvrAudioSoundfieldEditor.cs" />
-     <Compile Include="Assets\GoogleVR\Legacy\Editor\Audio\GvrAudioSourceEditor.cs" />
+     <Compile Include="Assets\GoogleVR\Editor\GvrMenu.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>/Users/vdu/workspace/experiments/Archaeology VR/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
