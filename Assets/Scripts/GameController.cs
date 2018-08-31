@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
 	private MenuManager menuManager;
 	private PlayerCamera playerCamera;
 	private GameObject startingPoint;
-	private float zBufferFromStartMenu = -102.9f;
+	private float zBufferFromStartMenu = -106.9f;
 
     // Use this for initialization
     void Start () {

@@ -18,7 +18,8 @@ public class Character : MonoBehaviour {
 	}
 
 	private void DetermineNewChoice() {
-		characterDataService.GetRandomChoice();
+		GameDataModel.CharacterChoice choice = characterDataService.GetRandomChoice();
+		Debug.Log(choice);
 	}
 
 	public void PlayerStartContact() {

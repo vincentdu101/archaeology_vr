@@ -20,9 +20,9 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public Vector3 GetMenuPosition(TYPE menu) {
-		if (menu == TYPE.START) {
+		if (startMenu != null && menu == TYPE.START) {
 			return startMenu.transform.position;
 		}
-		return startMenu.transform.position;
+		return new Vector3(0, 0, 0);
 	}
 }

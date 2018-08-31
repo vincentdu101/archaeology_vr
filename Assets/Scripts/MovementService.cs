@@ -20,7 +20,6 @@ public class MovementService : MonoBehaviour {
 	}
 
 	public void MoveUpPathOne() {
-		Debug.Log("test");
 		player.transform.position = player.transform.position + new Vector3(0.0f, 0.0f, 3.0f);
 	}
 

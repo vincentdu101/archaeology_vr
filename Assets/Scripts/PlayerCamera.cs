@@ -21,6 +21,8 @@ public class PlayerCamera : MonoBehaviour {
 	}
 
 	public void SetCameraPosition(Vector3 position) {
-		camera.transform.position = position;
+		if (camera != null) {
+			camera.transform.position = position;
+		}
 	}
 }
