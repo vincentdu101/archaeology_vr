@@ -8,7 +8,8 @@ public class GameController : MonoBehaviour {
 	private MenuManager menuManager;
 	private PlayerCamera playerCamera;
 	private GameObject startingPoint;
-	private float zBufferFromStartMenu = -106.9f;
+	private float zBufferFromStartMenu = -0.4f;
+	private float yBufferFromStartMenu = 22.9f;
 
     // Use this for initialization
     void Start () {
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour {
 	private void MovePlayerToStartMenu() {
 		Vector3 menuPosition = menuManager.GetMenuPosition(MenuManager.TYPE.START);
 		menuPosition.z += zBufferFromStartMenu;
+		menuPosition.y += yBufferFromStartMenu;
 		playerCamera.SetCameraPosition(menuPosition);
 	}
 
