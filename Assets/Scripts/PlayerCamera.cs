@@ -20,6 +20,10 @@ public class PlayerCamera : MonoBehaviour {
 		return camera.transform.position;
 	}
 
+	public Transform GetCameraTransform() {
+		return camera.transform;
+	}
+
 	public void SetCameraPosition(Vector3 position) {
 		if (camera != null) {
 			camera.transform.position = position;

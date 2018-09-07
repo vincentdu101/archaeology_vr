@@ -8,6 +8,7 @@ public class Character : MonoBehaviour {
 	private CharacterDataService characterDataService;
 	private MenuManager menuManager;
 	private string characterName;
+	private GameDataModel.CharacterChoice choice;
 
 	// Use this for initialization
 	void Start () {
@@ -21,8 +22,7 @@ public class Character : MonoBehaviour {
 	}
 
 	private void DetermineNewChoice() {
-		GameDataModel.CharacterChoice choice = characterDataService.GetRandomChoice();
-		Debug.Log(choice);
+		choice = characterDataService.GetRandomChoice();
 	}
 
 	private void SetCharacterName() {
@@ -34,6 +34,6 @@ public class Character : MonoBehaviour {
 	public void PlayerStartContact() {
 		DetermineNewChoice();
 		SetCharacterName();
-		menuManager.MoveMenuToPlayer();
+		menuManager.SetupCharacterMenu(choice, characterName);
 	}
 }
