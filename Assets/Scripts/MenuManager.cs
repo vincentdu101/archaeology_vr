@@ -33,6 +33,12 @@ public class MenuManager : MonoBehaviour {
 		messageText.text = dialogue;
 	}
 
+	private void LoadChoicesIntoMenu(GameDataModel.Choice[] choices) {
+		foreach (GameDataModel.Choice choice in choices) {
+			
+		}
+	}
+
 	public Vector3 GetMenuPosition(TYPE menu) {
 		if (startMenu != null && menu == TYPE.START) {
 			return startMenu.transform.position;
@@ -51,5 +57,6 @@ public class MenuManager : MonoBehaviour {
 		MoveMenuToPlayer(characterMenu);
 		ModifyCharacterName(name);
 		ModifyCharacterMessage(choice.text);
+		LoadChoicesIntoMenu(choice.choices);
 	}
 }

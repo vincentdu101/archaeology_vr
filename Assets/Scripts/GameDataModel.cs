@@ -3,6 +3,10 @@ using System.Collections;
 
 public class GameDataModel : MonoBehaviour {
 
+	public enum ChoiceType {
+		NORMAL, CLOSE
+	}
+
 	[System.Serializable]
 	public class GameData {
 		public string[] names;
@@ -13,23 +17,21 @@ public class GameDataModel : MonoBehaviour {
 	public class CharacterChoice {
 		public string id;
 		public string text;
-		public string[] btns;
-		public string positiveText;
-		public string negativeText;
-		public string close;
-		public string nextPositiveSequence;
-		public string nextNegativeSequence;
+		public Choice[] choices;
 		public string resetChoice;
 		public void clone(CharacterChoice choice) {
 			this.id = choice.id;
 			this.text = choice.text;
-			this.btns = choice.btns;
-			this.positiveText = choice.positiveText;
-			this.negativeText = choice.negativeText;
-			this.close = choice.close;
-			this.nextPositiveSequence = choice.nextPositiveSequence;
-			this.nextNegativeSequence = choice.nextNegativeSequence;
+			this.choices = choice.choices;
+			this.resetChoice = choice.resetChoice;
 		}
+	}
+
+	[System.Serializable]
+	public class Choice {
+		private ChoiceType choiceType;
+		private string text;
+		private string sequence;
 	}
 
 }
